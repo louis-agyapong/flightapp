@@ -3,7 +3,21 @@ from rest_framework import serializers
 from .models import Flight, Passenger, Reservation
 
 
+class ReservationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = (
+            "flight",
+            "passenger",
+            "seat_number",
+            "seat_type",
+            "price",
+        )
+
+
 class FlightSerializer(serializers.ModelSerializer):
+    reservations = ReservationSerializer(many=True, read_only=True)
+
     class Meta:
         model = Flight
         fields = (
@@ -16,10 +30,12 @@ class FlightSerializer(serializers.ModelSerializer):
             "price",
             "capacity",
             "available_seats",
+            "reservations",
         )
 
 
 class PassengerSerializer(serializers.ModelSerializer):
+    reservations = ReservationSerializer(many=True, read_only=True)
     class Meta:
         model = Passenger
         fields = (
@@ -34,16 +50,5 @@ class PassengerSerializer(serializers.ModelSerializer):
             "country",
             "passport_number",
             "passport_expiration_date",
-        )
-
-
-class ReservationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reservation
-        fields = (
-            "flight",
-            "passenger",
-            "seat_number",
-            "seat_type",
-            "price",
+            "reservations",
         )
