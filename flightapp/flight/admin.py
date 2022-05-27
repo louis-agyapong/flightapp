@@ -23,6 +23,7 @@ class FlightAdmin(admin.ModelAdmin):
 @admin.register(Passenger)
 class PassengerAdmin(admin.ModelAdmin):
     list_display = [
+        "passport_number",
         "first_name",
         "last_name",
         "email",
@@ -32,10 +33,9 @@ class PassengerAdmin(admin.ModelAdmin):
         "state",
         "zip_code",
         "country",
-        "passport_number",
         "passport_expiration_date",
     ]
-    list_display_links = ["first_name", "last_name"]
+    list_display_links = ["passport_number"]
     list_filter = ["first_name", "last_name"]
     search_fields = ["first_name", "last_name"]
 

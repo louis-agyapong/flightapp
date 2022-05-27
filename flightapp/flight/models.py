@@ -29,7 +29,7 @@ class Passenger(models.Model):
     country = models.CharField(_("Country"), max_length=256)
     passport_number = models.CharField(_("Passport Number"), max_length=256)
     passport_expiration_date = models.DateField(_("Passport Expiration Date"))
-    flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name="passengers")
+    # flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name="passengers")
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
