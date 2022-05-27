@@ -40,6 +40,7 @@ class PassengerAdmin(admin.ModelAdmin):
     search_fields = ["first_name", "last_name"]
 
 
+@admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ["flight", "passenger", "seat_number", "seat_type", "price"]
     list_display_links = ["flight", "passenger"]
