@@ -29,14 +29,14 @@ class Passenger(models.Model):
     country = models.CharField(_("Country"), max_length=256)
     passport_number = models.CharField(_("Passport Number"), max_length=256)
     passport_expiration_date = models.DateField(_("Passport Expiration Date"))
-    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name="passengers")
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
 class Reservation(models.Model):
-    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name="reservations")
+    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, related_name="reservations")
     seat_number = models.CharField(_("Seat Number"), max_length=256)
     seat_type = models.CharField(_("Seat Type"), max_length=256)
     price = models.DecimalField(_("Price"), max_digits=6, decimal_places=2)
