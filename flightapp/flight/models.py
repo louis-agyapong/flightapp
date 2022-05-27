@@ -13,6 +13,9 @@ class Flight(models.Model):
     capacity = models.IntegerField(_("Capacity"))
     available_seats = models.IntegerField(_("Available Seats"))
 
+    def find_available_seats(self):
+        return self.capacity - Reservation.objects.filter(flight=self).count()
+
     def __str__(self):
         return self.flight_number
 
@@ -29,10 +32,10 @@ class Passenger(models.Model):
     country = models.CharField(_("Country"), max_length=256)
     passport_number = models.CharField(_("Passport Number"), max_length=256)
     passport_expiration_date = models.DateField(_("Passport Expiration Date"))
-    # flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name="passengers")
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
 
 class Reservation(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name="reservations")
